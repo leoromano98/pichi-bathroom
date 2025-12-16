@@ -80,6 +80,19 @@
         p {
             font-size: 18px;
         }
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            width: auto;
+        }
+        .delete-btn:hover {
+            background: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -89,7 +102,7 @@
     <form method="post">
         {% csrf_token %}
         <input type="text" name="place" placeholder="¿Dónde fue?" required>
-        <button type="submit">Agregar</button>
+        <button type="submit" >Agregar</button>
     </form>
 
     <h2>Historial de Deploys</h2>
@@ -99,6 +112,7 @@
             <tr>
                 <th>Lugar</th>
                 <th>Fecha & Hora</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -106,6 +120,11 @@
             <tr>
                 <td>{{ visit.place }}</td>
                 <td>{{ visit.timestamp|date:"l j \d\e F, g:iA" }}</td>
+                <td>
+                    <form method="get" action="{% url 'delete_visit' visit.id %}" style="margin: 0; padding: 0;" onsubmit="return confirm('¿Seguro que quieres eliminar este registro?');">
+                        <button type="submit" class="delete-btn">X</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
