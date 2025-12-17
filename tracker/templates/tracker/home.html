@@ -2,8 +2,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pichi Baño Tracker</title>
+
+    <!-- Meta Description -->
+    <meta name="description" content="Registro oficial de deploys del Pichi. Un tracker divertido para seguir cada visita al baño.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="Pichi Baño Tracker">
+    <meta property="og:description" content="Registro oficial de deploys del Pichi. Un tracker divertido para seguir cada visita al baño.">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'tracker/pichi.png' %}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta property="twitter:title" content="Pichi Baño Tracker">
+    <meta property="twitter:description" content="Registro oficial de deploys del Pichi. Un tracker divertido para seguir cada visita al baño.">
+    <meta property="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'tracker/pichi.png' %}">
+
     <style>
         * {
             box-sizing: border-box;
