@@ -36,7 +36,7 @@
             border-radius: 10px;
             margin-bottom: 30px;
         }
-        input[type="text"] {
+        input[type="text"], input[type="datetime-local"] {
             padding: 15px;
             width: 100%;
             max-width: 400px;
@@ -88,10 +88,247 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
-            width: auto;
+            width: 100%;
+            height: 100%;
         }
         .delete-btn:hover {
             background: #c82333;
+        }
+
+        /* Highlight new row */
+        .new-row {
+            animation: highlight-blink 1.5s ease-in-out;
+        }
+
+        @keyframes highlight-blink {
+            0%, 100% { background-color: transparent; }
+            16.66% { background-color: #ffd700; }
+            33.33% { background-color: transparent; }
+            50% { background-color: #ffd700; }
+            66.66% { background-color: transparent; }
+            83.33% { background-color: #ffd700; }
+        }
+
+        /* Toilet Animation Overlay */
+        #animation-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ADD8E6;
+            z-index: 9999;
+            opacity: 0;
+        }
+
+        #animation-overlay.active {
+            display: block;
+            animation: fade-in 2s forwards;
+        }
+
+        #animation-overlay.fade-out {
+            animation: fade-out 2s forwards;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 0.95; }
+        }
+
+        @keyframes fade-out {
+            from { opacity: 0.95; }
+            to { opacity: 0; }
+        }
+
+        #animation-overlay div {
+            background: white;
+        }
+
+        #toilet-lid {
+            height: 15px;
+            width: 200px;
+            border-radius:6px;
+            position: absolute;
+            left: calc((100% - 350px) / 2);
+            top: calc((100% - 210px) / 2);
+            transform-origin: 192.5px 7.5px;
+        }
+
+        #animation-overlay.active #toilet-lid {
+            animation: lid-opening 4s ease-out;
+        }
+
+        #toilet-bowl {
+            height: 80px;
+            width: 200px;
+            border-radius: 6px 6px 100px 100px;
+            position: absolute;
+            left: calc((100% - 350px) / 2);
+            top: calc((100% - 165px) / 2);
+            box-shadow: 0 0 0 9px #ADD8E6;
+        }
+
+        #toilet-leg {
+            height: 190px;
+            width: 200px;
+            border-radius: 6px;
+            position: absolute;
+            left: calc((100% - 200px) / 2);
+            top: calc((100% - 165px) / 2);
+        }
+
+        #toilet-tank {
+            height: 200px;
+            width: 100px;
+            border-radius: 6px;
+            position: absolute;
+            left: calc((100% + 68px) / 2);
+            top: calc((100% - 400px) / 2);
+        }
+
+        #toilet-tank-lid {
+            height: 15px;
+            width: 100px;
+            border-radius: 6px 6px 0 0;
+            position: absolute;
+            left: calc((100% + 68px) / 2);
+            top: calc((100% - 440px) / 2);
+        }
+
+        #flush-lever {
+            height: 15px;
+            width: 50px;
+            background-color: #ccc;
+            border-radius: 6px;
+            position: absolute;
+            left: calc((100% + 120px) / 2);
+            top: calc((100% - 360px) / 2);
+            transform-origin: 8px 8px;
+        }
+
+        #animation-overlay.active #flush-lever {
+            animation: lever-rotation 4s ease-in-out;
+        }
+
+        @keyframes lever-rotation {
+            0% { transform: rotate(0); }
+            7% { transform: rotate(60deg); }
+            14% { transform: rotate(0); }
+            100% { transform: rotate(0); }
+        }
+
+        @keyframes lid-opening {
+            0% { transform: rotate(0); }
+            10% { transform: rotate(90deg); }
+            50% { transform: rotate(90deg); }
+            60% { transform: rotate(0); }
+            100% { transform: rotate(0); }
+        }
+
+        #toilet-bowl-overlay {
+            height: 80px;
+            width: 200px;
+            border-radius: 6px 6px 100px 100px;
+            position: absolute;
+            left: calc((100% - 350px) / 2);
+            top: calc((100% - 165px) / 2);
+        }
+
+        #water {
+            position: absolute;
+            left: calc((100% - 200px) / 2 - 1px);
+            top: calc((100% - 205px) / 2 + 55px);
+            background-color: #3882ff;
+            height: 40px;
+            width: 27px;
+        }
+
+        #animation-overlay.active #water {
+            animation: water 4s ease-in-out;
+        }
+
+        #water:after {
+            background-color: transparent;
+            content: "";
+            border-radius: 50%;
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border: 25px solid #3882ff;
+            border-color: #3882ff transparent transparent #3882ff;
+            transform: rotate(45deg);
+            top: -22px;
+        }
+
+        #animation-overlay.active #water:after {
+            animation: water-right 4s ease-in-out;
+        }
+
+        #water:before {
+            background-color: transparent;
+            content: "";
+            border-radius: 50%;
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border: 25px solid #3882ff;
+            border-color: #3882ff transparent transparent #3882ff;
+            transform: rotate(45deg);
+            top: -22px;
+            right: 0px;
+        }
+
+        #animation-overlay.active #water:before {
+            animation: water-left 4s ease-in-out;
+        }
+
+        @keyframes water {
+            0% { transform: translateY(0); }
+            10% { transform: translateY(-60px); }
+            15% { transform: translateY(-70px); }
+            20% { transform: translateY(-60px); }
+            25% { transform: translateY(-75px); }
+            27% { transform: translateY(-60px); }
+            30% { transform: translateY(-75px); }
+            35% { transform: translateY(-65px); }
+            40% { transform: translateY(-75px); }
+            45% { transform: translateY(-60px); }
+            50% { transform: translateY(-75px); }
+            60% { transform: translateY(0); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes water-right {
+            0% { transform: rotate(45deg); }
+            10% { transform: rotate(30deg); }
+            15% { transform: rotate(65deg); }
+            20% { transform: rotate(30deg); }
+            25% { transform: rotate(65deg); }
+            27% { transform: rotate(30deg); }
+            30% { transform: rotate(65deg); }
+            35% { transform: rotate(30deg); }
+            40% { transform: rotate(65deg); }
+            45% { transform: rotate(30deg); }
+            50% { transform: rotate(65deg); }
+            60% { transform: rotate(45deg); }
+            100% { transform: rotate(45deg); }
+        }
+
+        @keyframes water-left {
+            0% { transform: rotate(45deg); }
+            10% { transform: rotate(65deg); }
+            15% { transform: rotate(30deg); }
+            20% { transform: rotate(65deg); }
+            25% { transform: rotate(30deg); }
+            27% { transform: rotate(65deg); }
+            30% { transform: rotate(30deg); }
+            35% { transform: rotate(65deg); }
+            40% { transform: rotate(30deg); }
+            45% { transform: rotate(65deg); }
+            50% { transform: rotate(30deg); }
+            60% { transform: rotate(45deg); }
+            100% { transform: rotate(45deg); }
         }
     </style>
 </head>
@@ -99,11 +336,23 @@
     <img src="{% static 'tracker/pichi.png' %}" alt="Pichi" class="logo">
     <h1>Pichi Baño Tracker</h1>
 
-    <form method="post">
+    <form method="post" id="toilet-form">
         {% csrf_token %}
         <input type="text" name="place" placeholder="¿Dónde fue?" required>
+        <input type="datetime-local" name="deployed_at" required>
         <button type="submit" >Agregar</button>
     </form>
+
+    <div id="animation-overlay">
+        <div id="toilet-leg"></div>
+        <div id="toilet-tank"></div>
+        <div id="toilet-tank-lid"></div>
+        <div id="flush-lever"></div>
+        <div id="toilet-bowl"></div>
+        <div id="toilet-lid"></div>
+        <div id="water"></div>
+        <div id="toilet-bowl-overlay"></div>
+    </div>
 
     <h2>Historial de Deploys</h2>
     {% if visits %}
@@ -117,11 +366,11 @@
         </thead>
         <tbody>
             {% for visit in visits %}
-            <tr>
+            <tr {% if new_id and visit.id|stringformat:"s" == new_id %}class="new-row"{% endif %}>
                 <td>{{ visit.place }}</td>
-                <td>{{ visit.timestamp|date:"l j \d\e F, g:iA" }}</td>
+                <td>{{ visit.deployed_at|date:"l j \d\e F, g:iA" }}</td>
                 <td>
-                    <form method="get" action="{% url 'delete_visit' visit.id %}" style="margin: 0; padding: 0;" onsubmit="return confirm('¿Seguro que quieres eliminar este registro?');">
+                    <form method="get" action="{% url 'delete_visit' visit.id %}" style="margin: 0; padding: 0; width: 30px; height: 30px;" onsubmit="return confirm('¿Seguro que quieres eliminar este registro?');">
                         <button type="submit" class="delete-btn">X</button>
                     </form>
                 </td>
@@ -132,5 +381,32 @@
     {% else %}
     <p>Ningun deploy registrado (por ahora...)</p>
     {% endif %}
+
+    <script>
+        // Check if we should scroll to bottom after page load
+        window.addEventListener('load', function() {
+            if (sessionStorage.getItem('scrollToBottom') === 'true') {
+                sessionStorage.removeItem('scrollToBottom');
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        });
+
+        document.getElementById('toilet-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = this;
+            const overlay = document.getElementById('animation-overlay');
+
+            overlay.classList.add('active');
+
+            setTimeout(function() {
+                overlay.classList.add('fade-out');
+            }, 2500);
+
+            setTimeout(function() {
+                sessionStorage.setItem('scrollToBottom', 'true');
+                form.submit();
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
