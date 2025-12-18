@@ -12,6 +12,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    origin for origin in os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",") if origin
+]
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
